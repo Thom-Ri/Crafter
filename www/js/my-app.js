@@ -14,11 +14,11 @@ var app = new Framework7({
       swipe: 'left',
     },
     // Add default routes
-    routes: [
-      {
-        path: '/about/',
-        url: 'about.html',
-      },
+    routes: [  
+        { path: '/index/', url: 'index.html', },
+        { path: '/inises/', url: 'inises.html', },
+        { path: '/registro/', url: 'registro.html', },
+        { path: '/inicio/', url: 'inicio.html', },  
     ]
     // ... other parameters
   });
@@ -40,5 +40,27 @@ $$(document).on('page:init', function (e) {
 $$(document).on('page:init', '.page[data-name="about"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
-    alert('Hello');
 })
+
+
+$$(document).on('page:init', '.page[data-name="registro"]', function (e) {
+    $$("#btnini").on("click", adduser());
+})
+
+function adduser(){
+  var username= document.getElementById("username").value;
+  var useremail= document.getElementById("useremail").value;
+  var userpassword= document.getElementById("userpassword").value;
+  function addusertosistem( username, useremail,userpassword)
+  mainView.router.navigate('/inicio/');
+}
+
+function addusertosistem(user, email,contraseña){
+    var newuser={
+        user: username,
+        email: useremail,
+        contraseña:userpassword 
+    }
+    console.log(newuser)
+}
+    

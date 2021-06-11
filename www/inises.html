@@ -1,5 +1,5 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
-<div class="page pgindex" data-name="about">
+<div class="page pgindex" data-name="iniciarsesion">
     <div class="page-content">
         <div class="block">
             <br/>
@@ -15,7 +15,7 @@
                             <div class="item-inner">
                                 <div class="item-title item-label">E-mail</div>
                                 <div class="item-input-wrap">
-                                    <input type="email" placeholder="Tu direccion de e-mail" />
+                                    <input type="email" id="useremailSI" placeholder="Tu direccion de e-mail" />
                                     <span class="input-clear-button"></span>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                             <div class="item-inner">
                                 <div class="item-title item-label">Contraseña</div>
                                 <div class="item-input-wrap">
-                                    <input type="password" placeholder="Tu Contraseña" />
+                                    <input type="password" id="userpasswordSI" placeholder="Tu Contraseña" />
                                     <span class="input-clear-button"></span>
                                 </div>
                             </div>
@@ -40,9 +40,7 @@
             <br>
             <br>
             <br>
-            <a href="/inicio/">
-                <button class="col button button-fill color-orange">iniciar sesion</button>
-            </a>
+                <button class="col button button-fill color-orange" id="btnini">iniciar sesion</button>
         </div>
     </div>
 </div>

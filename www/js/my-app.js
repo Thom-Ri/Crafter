@@ -44,23 +44,38 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
 
 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
-    $$("#btnini").on("click", adduser());
+    $$("#btnregi").on("click", adduser);
 })
+
+$$(document).on('page:init', '.page[data-name="iniciarsesion"]', function (e) {
+    $$("#btnini").on("click", checkin);
+})
+
 
 function adduser(){
   var username= document.getElementById("username").value;
   var useremail= document.getElementById("useremail").value;
   var userpassword= document.getElementById("userpassword").value;
-  function addusertosistem( username, useremail,userpassword)
-  mainView.router.navigate('/inicio/');
+  firebase.auth().createUserWithEmailAndPassword(useremail,userpassword)
+    .catch( function(error){
+        console.log("hay un error")
+    })
+    .then( function(){
+        console.log("todo bien")
+        mainView.router.navigate('/inicio/');
+    })
 }
-
-function addusertosistem(user, email,contraseña){
-    var newuser={
-        user: username,
-        email: useremail,
-        contraseña:userpassword 
-    }
-    console.log(newuser)
+function checkin(){
+    var email= document.getElementById("useremailSI").value;
+    var password= document.getElementById("userpasswordSI").value;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+        // Signed in
+        var user = userCredential.user;
+        console.log("todo bien, pasa")
+        mainView.router.navigate('/inicio/');
+    })
+    .catch((error) => {
+        console.log("no te conozco")
+    });
 }
-    

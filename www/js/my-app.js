@@ -51,7 +51,19 @@ $$(document).on('page:init', '.page[data-name="iniciarsesion"]', function (e) {
     $$("#btnini").on("click", checkin);
 })
 
+$$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
+    $$("#btnbusqueda").on("click", search);
+    $$("#btnlibreria").on("click", gotolibrary);
+})
 
+$$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
+})
+
+$$(document).on('page:init', '.page[data-name="libreria"]', function (e) {
+    $$("#backlibrary").on("click", backlibrary);
+})
+
+/* FUNCIONES DE REGISTRO*/
 function adduser(){
   var username= document.getElementById("username").value;
   var useremail= document.getElementById("useremail").value;
@@ -78,4 +90,15 @@ function checkin(){
     .catch((error) => {
         console.log("no te conozco")
     });
+}
+/* FUNCIONES DE INICIO*/
+function search(){
+    mainView.router.navigate('/busqueda/');
+}
+function gotolibrary(){
+    mainView.router.navigate('/libreria/');
+}
+/* FUNCIONES DE LIBRERIA*/
+function backlibrary(){
+    mainView.router.navigate('/inicio/');
 }

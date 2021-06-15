@@ -86,4 +86,12 @@
 .pgindex{
   background-image: linear-gradient( #ff4e00, #ec9f05);
 }
-
+.btnmenu{
+  background-color: #FF7300;
+}
+.pginicio{
+  background-image: linear-gradient( #FADCD0, #FA8D10);
+}
+.invisible{
+  background-color: transparent;
+}

@@ -86,12 +86,44 @@
 .pgindex{
   background-image: linear-gradient( #ff4e00, #ec9f05);
 }
+
 .btnmenu{
-  background-color: #FF7300;
+  background-color: #ff7300;
 }
 .pginicio{
-  background-image: linear-gradient( #FADCD0, #FA8D10);
+  background-image: linear-gradient( #fadcd0, #fa8d10);
 }
 .invisible{
   background-color: transparent;
+}
+.elevation-demo {
+  font-size: 18px;
+  text-align: center;
+}
+
+.panel {
+  min-width: 100px;
+  max-width: 90vw;
+}
+
+.mypanel{
+  background-color: #ff8f33;
+}
+
+
+.cardimg{
+  height: 175px;
+  width: 335px;
+}
+.img{
+  height: 240px;
+}
+
+.paragraphs{
+  margin-top: 10px;
+}
+
+.imge{
+  height: 20px;
+  width: 20px;
 }

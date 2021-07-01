@@ -95,6 +95,7 @@
 }
 .invisible{
   background-color: transparent;
+  border: none;
 }
 .elevation-demo {
   font-size: 18px;
@@ -114,6 +115,7 @@
 .cardimg{
   height: 175px;
   width: 335px;
+ 
 }
 .img{
   height: 240px;
@@ -126,4 +128,17 @@
 .imge{
   height: 20px;
   width: 20px;
+}
+
+.card-backdrop{
+  backdrop-filter: none!important;
+  height: 0px!important;
+}
+
+
+.inputs{
+  width: 90%;
+  height: 40px;
+  background-color: #e87c20;
+  text-align: center;
 }

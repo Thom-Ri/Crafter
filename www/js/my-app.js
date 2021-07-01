@@ -1,4 +1,3 @@
-// If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
 var app = new Framework7({
@@ -21,7 +20,8 @@ var app = new Framework7({
         { path: '/busqueda/', url: 'busqueda.html', },
         { path: '/libreria/', url: 'libreria.html', },
         { path: '/nuevoprojecto/', url: 'nuevoproyecto.html', },  
-        { path: '/resultado/', url: 'result.html',},  
+        { path: '/resultado/', url: 'result.html',}, 
+        { path: '/create/', url: 'create.html',}, 
     ],
     // ... other parameters
     autocomplete: {
@@ -31,6 +31,13 @@ var app = new Framework7({
 });
   
 var mainView = app.views.create('.view-main');
+
+var coluser
+var colproyectos;
+var db;
+db= firebase.firestore();
+colproyectos= db.collection('Proyectos');
+coluser=db.collection('Users')
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -49,6 +56,11 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
     console.log(e);
 })
 
+
+
+$$(document).on('page:init', '.page[data-name="index"]', function (e) {
+  console.log("se inicio la pagina")
+})
 /*REGISTRO*/ 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
     $$("#btnregi").on("click", adduser);
@@ -68,12 +80,62 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
       on: {
         opened: function () {
           console.log('Panel opened')
+          $$('.ac-1').on('click', () => {
+            ac1.open();
+          });
         }
       }
     })
+    var ac1 = app.actions.create({
+        buttons: [
+          {
+            text: 'galeria',
+            onClick: fnGaleria(),
+
+          },
+          {
+            text: 'Camara',
+            onClick:fnCamara(),
+          },
+          {
+            text: 'Cancel',
+            color: 'red'
+          },
+        ]
+    })
+    $$("#gocreate").on("click", gotocreate);
     $$("#btncerrarsesion").on("click", closesesion);
 })
-/*BUSQUEDA*/
+
+
+$$(document).on('page:init', '.page[data-name="create"]', function (e) {
+  var ac1 = app.actions.create({
+    buttons: [
+      {
+        text: 'galeria',
+        onClick: fnGaleria(),
+      },
+      {
+        text: 'Camara',
+        onClick:fnCamara(),
+      },
+      {
+        text: 'Cancel',
+        color: 'red'
+      },
+    ]
+  })
+})
+
+/* Create */
+$$(document).on('page:init', '.page[data-name="create"]', function (e) {
+  $$("#backcreate").on("click", fnbackcreate);
+  $$("#btncreate").on("click", createproyect);
+  
+})
+
+
+/* BUSQUEDA */
 $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
     $$("#backbusqueda").on("click", backbusqueda);
     var searchbar = app.searchbar.create({
@@ -88,7 +150,7 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
     });
     
 })
-/*LIBRERIA*/
+/* LIBRERIA */
 $$(document).on('page:init', '.page[data-name="libreria"]', function (e) {
     $$("#backlibrary").on("click", backlibrary);    
 })
@@ -178,6 +240,55 @@ $$(document).on('page:init', '.page[data-name="result"]', function (e) {
   $$("#backresult").on("click", backresult);    
 })
 
+
+
+/*CARDS*/
+$$('card-expandable').on('card:opened', function () {
+    $("#e1").on("mouseover", function() {
+      iluminar(1)
+    });
+    $("#e2").on("mouseover", function() {
+      iluminar(2)
+    });
+    $("#e3").on("mouseover", function() {
+        iluminar(3)
+    });
+    $("#e4").on("mouseover", function() {
+        iluminar(4)
+    });
+    $("#e5").on("mouseover", function() {
+        iluminar(5)
+    });
+
+    $("#e1").on("click", function() {
+        seleccionar(1)
+    });
+    $("#e2").on("click", function() {
+        seleccionar(2)
+    });
+    $("#e3").on("click", function() {
+        seleccionar(3)
+    });
+    $("#e4").on("click", function() {
+        seleccionar(4)
+    });
+    $("#e5").on("click", function() {
+        seleccionar(5)
+    });
+
+    $(".imge").on("mouseout", apagar);
+    });
+
+/*
+
+  COMIENZAN FUNCIONESSSSSSS
+
+
+*/
+
+
+
+
 /* FUNCIONES DE REGISTRO*/
 function adduser(){
   var username= document.getElementById("username").value;
@@ -191,6 +302,24 @@ function adduser(){
         console.log("todo bien")
         mainView.router.navigate('/inicio/');
     })
+
+  var datos={
+    user : document.getElementById("username").value,
+  }
+  id=document.getElementById("useremail").value;
+  coluser.doc(id).set(datos);
+  coluser.get()
+   .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+         user= doc.data().user
+        });
+        $$("#inuser").html(user)
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });  
+  
+  
 }
 function checkin(){
     var email= document.getElementById("useremailSI").value;
@@ -217,9 +346,100 @@ function gotolibrary(){
 function gotoproject(){
     mainView.router.navigate('/nuevoprojecto/');
 }
+function gotocreate(){
+  mainView.router.navigate('/create/');
+}
 function closesesion(){
-    mainView.router.navigate('/index/');
-    app.panel.close(mypanel);
+  mainView.router.navigate('/index/');
+  app.panel.close(mypanel);
+}
+/* FUNCIONES DE CREATE*/
+function fnbackcreate(){
+  mainView.router.navigate('/inicio/');
+}
+function createproyect(){
+  var datos={
+     titulo: document.getElementById("in1").value,
+    //  foto: document.getElementById("foto").attr("src"),
+     primermaterial: document.getElementById("in2").value,
+     segundomaterial: document.getElementById("in3").value,
+     tercermaterial: document.getElementById("in4").value,
+     cuartomaterial: document.getElementById("in5").value,
+     primerparrafo: document.getElementById("in6").value,
+     segundoparrafo:document.getElementById("in7").value,
+     tercerparrafo: document.getElementById("in8").value,
+     cuartoparrafo:document.getElementById("in9").value,
+  }
+  id=document.getElementById("in1").value;
+  colproyectos.doc(id).set(datos);
+
+
+  colproyectos.get()
+  .then((querySnapshot) => {
+    querySnapshot.forEach(function(doc){
+      titulo = doc.data().titulo
+      materialuno= doc.data().primermaterial
+      materialdos= doc.data().segundomaterial
+      materialtres= doc.data().tercermaterial
+      materialcuatro= doc.data().cuartomaterial
+      parrafouno= doc.data().primerparrafo
+      parrafodos= doc.data().segundoparrafo
+      parrafotres= doc.data().tercerparrafo
+      parrafocuatro= doc.data().cuartoparrafo
+      
+      card=`<div class="card card-expandable cardimg">
+        <div class="card-content">
+          <div style="background-color: transparent; height: 300px">
+            <img src="./img/aviones.jpg"  class="img" alt=""> 
+            <div class="card-header text-color-black display-block">
+              <div class="item-title">`+ titulo +`</div>
+              <small style="opacity: 0.7">
+                SomeUser 
+                <img src="./img/estrella vacia.jpg" value="1" alt="" class="imge">
+                <img src="./img/estrella vacia.jpg" value="2" alt="" class="imge">
+                <img src="./img/estrella vacia.jpg" value="3" alt="" class="imge">
+                <img src="./img/estrella vacia.jpg" value="4" alt="" class="imge">
+                <img src="./img/estrella vacia.jpg" value="5" alt="" class="imge">
+              </small>
+            </div>
+            <a href="#" class="link card-close card-opened-fade-in color-black"
+              style="position: absolute; right: 15px; top: 15px">
+              <i class="icon f7-icons">xmark_circle_fill</i>
+            </a>
+          </div>
+          <div class="card-content-padding paragraphs">
+            <hr>
+            <ol>
+              <li>`+ materialuno +`</li>
+              <li>`+ materialdos +`</li>
+              <li>`+ materialtres +`</li>  
+              <li>`+ materialcuatro +`</li>  
+            </ol> 
+            <hr>
+            <p>`+parrafouno+`</p>
+            <p>`+parrafodos+`</p>
+            <p>`+parrafotres+`</p>
+            <p>`+parrafocuatro+`</p>
+          </div>  
+        </div>`
+      });
+    $$("#contenedorbus").append(card);
+
+})
+  .catch(function(){
+    console.log("algo esta mal...")
+  })
+  mainView.router.navigate('/busqueda/');
+  // document.getElementById("in1").value = ""
+  // // document.getElementById("foto").attr
+  // document.getElementById("in2").value = ""
+  // document.getElementById("in3").value = ""
+  // document.getElementById("in4").value = ""
+  // document.getElementById("in5").value = ""
+  // document.getElementById("in6").value = ""
+  // document.getElementById("in7").value = ""
+  // document.getElementById("in8").value = ""
+  // document.getElementById("in9").value = ""
 }
 /* FUNCIONES DE LIBRERIA*/
 function backlibrary(){
@@ -243,3 +463,65 @@ function searchnewproject(){
 function backresult(){
   mainView.router.navigate('/inicio/');
 }
+
+/* FUNCIONES DE CARDS*/
+function iluminar(n) {
+  $(".imge").attr("src", "./img/estrella vacia.jpg")
+  for (i = 0; i <= n; i++) {
+      $("#e" + i).attr("src", "./img/estrellita ilu.png")
+  }
+}
+
+function seleccionar(nm) {
+  nvotos++
+  npuntos += nm
+  apagar();
+  console.log("nv =" + nvotos)
+  console.log("np =" + npuntos)
+  console.log("veo estrellas" + nm + "iluminadas")
+}
+
+function apagar() {
+  $(".imge").attr("src", "./img/estrella vacia.jpg")
+  if (nvotos > 1) {
+      prom = npuntos / nvotos
+      console.log("prom es igual a " + prom)
+  }
+  entero = parseInt(prom)
+  decimal = prom - entero
+  for (i = 0; i <= entero; i++) {
+      $("#e" + i).attr("src", "./img/estrellita selec.png")
+  }
+}
+
+
+
+function fnCamara() {
+  // FOTO DESDE CAMARA
+      navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
+              {
+                  quality: 50,
+                  destinationType: Camera.DestinationType.FILE_URI,
+                  sourceType: Camera.PictureSourceType.CAMERA
+              });
+}
+  
+  
+function fnGaleria() {
+  navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
+          {
+              quality: 50,
+              destinationType: Camera.DestinationType.FILE_URI,
+              sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+          });
+
+}
+
+function onSuccessCamara(imageURI) {
+  $$("#foto").attr("src", imageURI);
+ // RESTA QUE ESTA FOTO SUBA AL STORAGE…. O HACER OTRA COSA...
+
+}
+function onErrorCamara() {
+  console.log('error de camara');
+}  

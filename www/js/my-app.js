@@ -38,6 +38,7 @@ var db;
 db= firebase.firestore();
 colproyectos= db.collection('Proyectos');
 coluser=db.collection('Users')
+colnewproyects=db.collection('Proyectos').doc("new proyects").collection('userproyects')
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -59,12 +60,6 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
 
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
-  console.log("se inicio la pagina")
-  //   var datos={
-  //     nombre: "tomas"
-  //   }
-  //   id= "Tomas"
-  //   coluser.doc(id).set(datos)
 })
 /*REGISTRO*/ 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -91,8 +86,6 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
         }
       }
     })
-    $$("#gocreate").on("click", gotocreate);
-    $$("#btncerrarsesion").on("click", closesesion);
     var ac1 = app.actions.create({
         buttons: [
           {
@@ -109,7 +102,9 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
             color: 'red'
           },
         ]
-    })   
+    })
+    $$("#gocreate").on("click", gotocreate);
+    $$("#btncerrarsesion").on("click", closesesion);
 })
 
 
@@ -153,6 +148,69 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
           }
         }
     });
+    
+    colnewproyects.get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            titulo = doc.data().titulo
+            materialuno= doc.data().primermaterial
+            materialdos= doc.data().segundomaterial
+            materialtres= doc.data().tercermaterial
+            materialcuatro= doc.data().cuartomaterial
+            parrafouno= doc.data().primerparrafo
+            parrafodos= doc.data().segundoparrafo
+            parrafotres= doc.data().tercerparrafo
+            parrafocuatro= doc.data().cuartoparrafo
+              card=`<li class="item-content invisible">
+              <div class="item-inner">
+                <div class="card card-expandable cardimg">
+                  <div class="card-content">
+                    <div style="background-color: transparent; height: 300px">
+                      <img src="./img/aviones.jpg"  class="img" alt=""> 
+                      <div class="card-header text-color-black display-block">
+                        <div class="item-title">`+ titulo +`</div>
+                        <small style="opacity: 0.7">
+                          SomeUser 
+                          <img src="./img/estrella vacia.jpg" value="1" alt="" class="imge">
+                          <img src="./img/estrella vacia.jpg" value="2" alt="" class="imge">
+                          <img src="./img/estrella vacia.jpg" value="3" alt="" class="imge">
+                          <img src="./img/estrella vacia.jpg" value="4" alt="" class="imge">
+                          <img src="./img/estrella vacia.jpg" value="5" alt="" class="imge">
+                        </small>
+                      </div>
+                      <a href="#" class="link card-close card-opened-fade-in color-black"
+                        style="position: absolute; right: 15px; top: 15px">
+                        <i class="icon f7-icons">xmark_circle_fill</i>
+                      </a>
+                    </div>
+                    <div class="card-content-padding paragraphs">
+                      <hr>
+                      <ol>
+                        <li>`+ materialuno +`</li>
+                        <li>`+ materialdos +`</li>
+                        <li>`+ materialtres +`</li>  
+                        <li>`+ materialcuatro +`</li>  
+                      </ol> 
+                      <hr>
+                      <p>`+parrafouno+`</p>
+                      <p>`+parrafodos+`</p>
+                      <p>`+parrafotres+`</p>
+                      <p>`+parrafocuatro+`</p>
+                    </div>  
+                  </div>  
+                </div> 
+              </div>
+            </li>`
+          $$("#contenedorbus").append(card);
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+
+
     
 })
 /*LIBRERIA*/
@@ -396,10 +454,11 @@ function createproyect(){
      cuartoparrafo:document.getElementById("in9").value,
   }
   id=document.getElementById("in1").value;
-  colproyectos.doc(id).set(datos)
+  colnewproyects.doc(id).set(datos)
   .then( function(){
-    colproyectos.doc(id).get()
+    colnewproyects.get()
     .then((doc) => {
+        console.log(doc.id, "mira => ", doc.data());
         titulo = doc.data().titulo
         materialuno= doc.data().primermaterial
         materialdos= doc.data().segundomaterial
@@ -513,24 +572,23 @@ function apagar() {
 
 function fnCamara() {
   // FOTO DESDE CAMARA
-  navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
+    navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
     {
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI,
         sourceType: Camera.PictureSourceType.CAMERA
     });
-}
-  
+  }
   
   
   function fnGaleria() {
     navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-    {
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-    });
-  
+      {
+          quality: 50,
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+      });
+
   }
   
   function onSuccessCamara(imageURI) {

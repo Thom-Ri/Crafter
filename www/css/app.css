@@ -94,7 +94,7 @@
   background-image: linear-gradient( #fadcd0, #fa8d10);
 }
 .invisible{
-  background-color: transparent;
+  background-color: transparent!important;
   border: none;
 }
 .elevation-demo {

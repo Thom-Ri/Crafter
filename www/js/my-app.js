@@ -75,6 +75,8 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
     $$("#btnbusqueda").on("click", search);
     $$("#btnlibreria").on("click", gotolibrary);
     $$("#btnwproject").on("click", gotoproject);
+    $$("#gocreate").on("click", gotocreate);
+    $$("#btncerrarsesion").on("click", closesesion);
     var panel = app.panel.create({
       el: '.panel-left',
       on: {
@@ -103,8 +105,6 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
           },
         ]
     })
-    $$("#gocreate").on("click", gotocreate);
-    $$("#btncerrarsesion").on("click", closesesion);
 })
 
 

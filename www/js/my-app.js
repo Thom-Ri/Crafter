@@ -91,6 +91,8 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
         }
       }
     })
+    $$("#gocreate").on("click", gotocreate);
+    $$("#btncerrarsesion").on("click", closesesion);
     var ac1 = app.actions.create({
         buttons: [
           {
@@ -107,9 +109,7 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
             color: 'red'
           },
         ]
-    })
-    $$("#gocreate").on("click", gotocreate);
-    $$("#btncerrarsesion").on("click", closesesion);
+    })   
 })
 
 
@@ -513,22 +513,23 @@ function apagar() {
 
 function fnCamara() {
   // FOTO DESDE CAMARA
-      navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-              {
-                  quality: 50,
-                  destinationType: Camera.DestinationType.FILE_URI,
-                  sourceType: Camera.PictureSourceType.CAMERA
-              });
-  }
+  navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
+    {
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        sourceType: Camera.PictureSourceType.CAMERA
+    });
+}
+  
   
   
   function fnGaleria() {
-      navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-              {
-                  quality: 50,
-                  destinationType: Camera.DestinationType.FILE_URI,
-                  sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-              });
+    navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
+    {
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+    });
   
   }
   

@@ -60,6 +60,11 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   console.log("se inicio la pagina")
+  //   var datos={
+  //     nombre: "tomas"
+  //   }
+  //   id= "Tomas"
+  //   coluser.doc(id).set(datos)
 })
 /*REGISTRO*/ 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -127,7 +132,7 @@ $$(document).on('page:init', '.page[data-name="create"]', function (e) {
   })
 })
 
-/* Create */
+/*Create*/
 $$(document).on('page:init', '.page[data-name="create"]', function (e) {
   $$("#backcreate").on("click", fnbackcreate);
   $$("#btncreate").on("click", createproyect);
@@ -135,7 +140,7 @@ $$(document).on('page:init', '.page[data-name="create"]', function (e) {
 })
 
 
-/* BUSQUEDA */
+/*BUSQUEDA*/
 $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
     $$("#backbusqueda").on("click", backbusqueda);
     var searchbar = app.searchbar.create({
@@ -150,7 +155,7 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
     });
     
 })
-/* LIBRERIA */
+/*LIBRERIA*/
 $$(document).on('page:init', '.page[data-name="libreria"]', function (e) {
     $$("#backlibrary").on("click", backlibrary);    
 })
@@ -300,26 +305,37 @@ function adduser(){
     })
     .then( function(){
         console.log("todo bien")
+        var datos={
+          user : document.getElementById("username").value,
+        }
+        id=document.getElementById("useremail").value;
+        coluser.doc(id).set(datos)
+        .then(function(){
+          db.collection("users").doc(id).get().then((doc) => {
+            user= doc.data().user
+            console.log(user); 
+            $$("#inuser").html(user)          
+          })
+          .catch((error) => {
+            console.log("nop");
+          });
+        })
+        .catch(function(){
+          console.log("no se escribio en base")
+        })
         mainView.router.navigate('/inicio/');
     })
 
-  var datos={
-    user : document.getElementById("username").value,
-  }
-  id=document.getElementById("useremail").value;
-  coluser.doc(id).set(datos);
-  coluser.get()
-   .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-         user= doc.data().user
-        });
-        $$("#inuser").html(user)
-    })
-    .catch((error) => {
-        console.log("Error getting documents: ", error);
-    });  
-  
-  
+  // .then(function(){
+  //   coluser.doc(id).get()
+  //   .then((doc) => {
+  //    user= doc.data().user
+  //    $$("#inuser").html(user)
+  //   })
+  // })
+  // .catch( function(){
+  //   console.log("no master, no hay caso")
+  // })
 }
 function checkin(){
     var email= document.getElementById("useremailSI").value;
@@ -329,12 +345,21 @@ function checkin(){
         // Signed in
         var user = userCredential.user;
         console.log("todo bien, pasa")
+        id=document.getElementById("useremailSI").value;
+        coluser.doc(id).get()
+        .then((doc) => {
+          user= doc.data().user
+          console.log("check in" + user)
+          $$("#inuser").html(user)
+        })
+        .catch(function(){
+          console.log("volve a intentar")
+        })
         mainView.router.navigate('/inicio/');
     })
     .catch((error) => {
         console.log("no te conozco")
     });
-    mainView.router.navigate('/inicio/');
 }
 /* FUNCIONES DE INICIO*/
 function search(){
@@ -371,75 +396,65 @@ function createproyect(){
      cuartoparrafo:document.getElementById("in9").value,
   }
   id=document.getElementById("in1").value;
-  colproyectos.doc(id).set(datos);
-
-
-  colproyectos.get()
-  .then((querySnapshot) => {
-    querySnapshot.forEach(function(doc){
-      titulo = doc.data().titulo
-      materialuno= doc.data().primermaterial
-      materialdos= doc.data().segundomaterial
-      materialtres= doc.data().tercermaterial
-      materialcuatro= doc.data().cuartomaterial
-      parrafouno= doc.data().primerparrafo
-      parrafodos= doc.data().segundoparrafo
-      parrafotres= doc.data().tercerparrafo
-      parrafocuatro= doc.data().cuartoparrafo
-      
-      card=`<div class="card card-expandable cardimg">
-        <div class="card-content">
-          <div style="background-color: transparent; height: 300px">
-            <img src="./img/aviones.jpg"  class="img" alt=""> 
-            <div class="card-header text-color-black display-block">
-              <div class="item-title">`+ titulo +`</div>
-              <small style="opacity: 0.7">
-                SomeUser 
-                <img src="./img/estrella vacia.jpg" value="1" alt="" class="imge">
-                <img src="./img/estrella vacia.jpg" value="2" alt="" class="imge">
-                <img src="./img/estrella vacia.jpg" value="3" alt="" class="imge">
-                <img src="./img/estrella vacia.jpg" value="4" alt="" class="imge">
-                <img src="./img/estrella vacia.jpg" value="5" alt="" class="imge">
-              </small>
-            </div>
-            <a href="#" class="link card-close card-opened-fade-in color-black"
-              style="position: absolute; right: 15px; top: 15px">
-              <i class="icon f7-icons">xmark_circle_fill</i>
-            </a>
+  colproyectos.doc(id).set(datos)
+  .then( function(){
+    colproyectos.doc(id).get()
+    .then((doc) => {
+        titulo = doc.data().titulo
+        materialuno= doc.data().primermaterial
+        materialdos= doc.data().segundomaterial
+        materialtres= doc.data().tercermaterial
+        materialcuatro= doc.data().cuartomaterial
+        parrafouno= doc.data().primerparrafo
+        parrafodos= doc.data().segundoparrafo
+        parrafotres= doc.data().tercerparrafo
+        parrafocuatro= doc.data().cuartoparrafo
+        
+          card=`<li class="item-content invisible">
+          <div class="item-inner">
+            <div class="card card-expandable cardimg">
+              <div class="card-content">
+                <div style="background-color: transparent; height: 300px">
+                  <img src="./img/aviones.jpg"  class="img" alt=""> 
+                  <div class="card-header text-color-black display-block">
+                    <div class="item-title">`+ titulo +`</div>
+                    <small style="opacity: 0.7">
+                      SomeUser 
+                      <img src="./img/estrella vacia.jpg" value="1" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="2" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="3" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="4" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="5" alt="" class="imge">
+                    </small>
+                  </div>
+                  <a href="#" class="link card-close card-opened-fade-in color-black"
+                    style="position: absolute; right: 15px; top: 15px">
+                    <i class="icon f7-icons">xmark_circle_fill</i>
+                  </a>
+                </div>
+                <div class="card-content-padding paragraphs">
+                  <hr>
+                  <ol>
+                    <li>`+ materialuno +`</li>
+                    <li>`+ materialdos +`</li>
+                    <li>`+ materialtres +`</li>  
+                    <li>`+ materialcuatro +`</li>  
+                  </ol> 
+                  <hr>
+                  <p>`+parrafouno+`</p>
+                  <p>`+parrafodos+`</p>
+                  <p>`+parrafotres+`</p>
+                  <p>`+parrafocuatro+`</p>
+                </div>  
+              </div>  
+            </div> 
           </div>
-          <div class="card-content-padding paragraphs">
-            <hr>
-            <ol>
-              <li>`+ materialuno +`</li>
-              <li>`+ materialdos +`</li>
-              <li>`+ materialtres +`</li>  
-              <li>`+ materialcuatro +`</li>  
-            </ol> 
-            <hr>
-            <p>`+parrafouno+`</p>
-            <p>`+parrafodos+`</p>
-            <p>`+parrafotres+`</p>
-            <p>`+parrafocuatro+`</p>
-          </div>  
-        </div>`
-      });
-    $$("#contenedorbus").append(card);
-
-})
-  .catch(function(){
-    console.log("algo esta mal...")
+        </li>`
+        $$("#contenedorbus").append(card);
+    })
+    
   })
-  mainView.router.navigate('/busqueda/');
-  // document.getElementById("in1").value = ""
-  // // document.getElementById("foto").attr
-  // document.getElementById("in2").value = ""
-  // document.getElementById("in3").value = ""
-  // document.getElementById("in4").value = ""
-  // document.getElementById("in5").value = ""
-  // document.getElementById("in6").value = ""
-  // document.getElementById("in7").value = ""
-  // document.getElementById("in8").value = ""
-  // document.getElementById("in9").value = ""
+  mainView.router.navigate('/busqueda/');     
 }
 /* FUNCIONES DE LIBRERIA*/
 function backlibrary(){
@@ -504,24 +519,24 @@ function fnCamara() {
                   destinationType: Camera.DestinationType.FILE_URI,
                   sourceType: Camera.PictureSourceType.CAMERA
               });
-}
+  }
   
   
-function fnGaleria() {
-  navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-          {
-              quality: 50,
-              destinationType: Camera.DestinationType.FILE_URI,
-              sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-          });
-
-}
-
-function onSuccessCamara(imageURI) {
-  $$("#foto").attr("src", imageURI);
- // RESTA QUE ESTA FOTO SUBA AL STORAGE…. O HACER OTRA COSA...
-
-}
-function onErrorCamara() {
-  console.log('error de camara');
-}  
+  function fnGaleria() {
+      navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
+              {
+                  quality: 50,
+                  destinationType: Camera.DestinationType.FILE_URI,
+                  sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+              });
+  
+  }
+  
+  function onSuccessCamara(imageURI) {
+      $$("#foto").attr("src", imageURI);
+     // RESTA QUE ESTA FOTO SUBA AL STORAGE…. O HACER OTRA COSA...
+  
+  }
+  function onErrorCamara() {
+      console.log('error de camara');
+  }

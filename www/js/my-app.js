@@ -1,3 +1,4 @@
+// If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
 var app = new Framework7({
@@ -75,8 +76,6 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
     $$("#btnbusqueda").on("click", search);
     $$("#btnlibreria").on("click", gotolibrary);
     $$("#btnwproject").on("click", gotoproject);
-    $$("#gocreate").on("click", gotocreate);
-    $$("#btncerrarsesion").on("click", closesesion);
     var panel = app.panel.create({
       el: '.panel-left',
       on: {
@@ -105,6 +104,8 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
           },
         ]
     })
+    $$("#gocreate").on("click", gotocreate);
+    $$("#btncerrarsesion").on("click", closesesion);
 })
 
 
@@ -168,7 +169,7 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
                 <div class="card card-expandable cardimg">
                   <div class="card-content">
                     <div style="background-color: transparent; height: 300px">
-                      <img src="./img/aviones.jpg"  class="img" alt=""> 
+                      <img src="./img/proyecto1.jpg"  class="img" alt=""> 
                       <div class="card-header text-color-black display-block">
                         <div class="item-title">`+ titulo +`</div>
                         <small style="opacity: 0.7">
@@ -221,7 +222,6 @@ $$(document).on('page:init', '.page[data-name="libreria"]', function (e) {
 $$(document).on('page:init', '.page[data-name="nuevoprojecto"]', function (e) {
     $$("#backNP").on("click", backnuevoprojecto);
     const materials = 'Carton Cartulina Plasticola Acrilico'.split(' ');
-
     autocompleteDropdownSimple = app.autocomplete.create({
         inputEl: '#autocomplete-dropdown',
         openIn: 'dropdown',
@@ -238,7 +238,7 @@ $$(document).on('page:init', '.page[data-name="nuevoprojecto"]', function (e) {
           }
           // Render items by passing array with result items
           render(results);
-        }
+        } 
     });
     autocompleteDropdownSimple = app.autocomplete.create({
         inputEl: '#autocomplete-dropdown2',
@@ -474,7 +474,7 @@ function createproyect(){
             <div class="card card-expandable cardimg">
               <div class="card-content">
                 <div style="background-color: transparent; height: 300px">
-                  <img src="./img/aviones.jpg"  class="img" alt=""> 
+                  <img src="./img/proyecto1.jpg"  class="img" alt=""> 
                   <div class="card-header text-color-black display-block">
                     <div class="item-title">`+ titulo +`</div>
                     <small style="opacity: 0.7">
@@ -528,7 +528,124 @@ function backbusqueda(){
 function backnuevoprojecto(){
     mainView.router.navigate('/inicio/');
 }
-function searchnewproject(){
+function searchnewproject(){ 
+  var mat1= document.getElementById("autocomplete-dropdown").value;
+  var mat2= document.getElementById("autocomplete-dropdown2").value;
+  var mat3= document.getElementById("autocomplete-dropdown3").value;
+  var mat4= document.getElementById("autocomplete-dropdown4").value;
+  console.log(mat1 , mat2, mat3, mat4)
+  colproyectos.where("primermaterial", "==", "carton")
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            titulo = doc.data().titulo
+            materialuno= doc.data().primermaterial
+            materialdos= doc.data().segundomaterial
+            materialtres= doc.data().tercermaterial
+            materialcuatro= doc.data().cuartomaterial
+            parrafouno= doc.data().primerparrafo
+            parrafodos= doc.data().segundoparrafo
+            parrafotres= doc.data().tercerparrafo
+            parrafocuatro= doc.data().cuartoparrafo
+              card=`<div class="card card-expandable cardimg">
+              <div class="card-content">
+                <div style="background-color: transparent; height: 300px">
+                  <img src="./img/proyecto1.jpg"  class="img" alt=""> 
+                  <div class="card-header text-color-black display-block">
+                    <div class="item-title">`+ titulo +`</div>
+                    <small style="opacity: 0.7">
+                      <img src="./img/estrella vacia.jpg" value="1" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="2" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="3" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="4" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="5" alt="" class="imge">
+                    </small>
+                  </div>
+                  <a href="#" class="link card-close card-opened-fade-in color-black"
+                    style="position: absolute; right: 15px; top: 15px">
+                    <i class="icon f7-icons">xmark_circle_fill</i>
+                  </a>
+                </div>
+                <div class="card-content-padding paragraphs">
+                  <hr>
+                  <ol>
+                    <li>`+ materialuno +`</li>
+                    <li>`+ materialdos +`</li>
+                    <li>`+ materialtres +`</li>  
+                    <li>`+ materialcuatro +`</li>  
+                  </ol> 
+                  <hr>
+                  <p>`+parrafouno+`</p>
+                  <p>`+parrafodos+`</p>
+                  <p>`+parrafotres+`</p>
+                  <p>`+parrafocuatro+`</p>
+                </div>  
+              </div>  
+            </div> `
+            $$("#contenedores").append(card);
+          });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+  colnewproyects.where("primermaterial", "==", "carton")
+  .get()
+  .then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        titulo = doc.data().titulo
+        materialuno= doc.data().primermaterial
+        materialdos= doc.data().segundomaterial
+        materialtres= doc.data().tercermaterial
+        materialcuatro= doc.data().cuartomaterial
+        parrafouno= doc.data().primerparrafo
+        parrafodos= doc.data().segundoparrafo
+        parrafotres= doc.data().tercerparrafo
+        parrafocuatro= doc.data().cuartoparrafo
+          card=`<div class="card card-expandable cardimg">
+          <div class="card-content">
+            <div style="background-color: transparent; height: 300px">
+              <img src="./img/aviones.jpg"  class="img" alt=""> 
+              <div class="card-header text-color-black display-block">
+                <div class="item-title">`+ titulo +`</div>
+                <small style="opacity: 0.7">
+                  <img src="./img/estrella vacia.jpg" value="1" alt="" class="imge">
+                  <img src="./img/estrella vacia.jpg" value="2" alt="" class="imge">
+                  <img src="./img/estrella vacia.jpg" value="3" alt="" class="imge">
+                  <img src="./img/estrella vacia.jpg" value="4" alt="" class="imge">
+                  <img src="./img/estrella vacia.jpg" value="5" alt="" class="imge">
+                </small>
+              </div>
+              <a href="#" class="link card-close card-opened-fade-in color-black"
+                style="position: absolute; right: 15px; top: 15px">
+                <i class="icon f7-icons">xmark_circle_fill</i>
+              </a>
+            </div>
+            <div class="card-content-padding paragraphs">
+              <hr>
+              <ol>
+                <li>`+ materialuno +`</li>
+                <li>`+ materialdos +`</li>
+                <li>`+ materialtres +`</li>  
+                <li>`+ materialcuatro +`</li>  
+              </ol> 
+              <hr>
+              <p>`+parrafouno+`</p>
+              <p>`+parrafodos+`</p>
+              <p>`+parrafotres+`</p>
+              <p>`+parrafocuatro+`</p>
+            </div>  
+          </div>  
+        </div> `
+        $$("#contenedores").append(card);
+    });
+  })
+  .catch((error) => {
+      console.log("Error getting documents: ", error);
+  });
   mainView.router.navigate('/resultado/');
 }
 
@@ -572,30 +689,30 @@ function apagar() {
 
 function fnCamara() {
   // FOTO DESDE CAMARA
-    navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-    {
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: Camera.PictureSourceType.CAMERA
-    });
+      navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
+              {
+                  quality: 50,
+                  destinationType: Camera.DestinationType.FILE_URI,
+                  sourceType: Camera.PictureSourceType.CAMERA
+              });
   }
   
   
-  function fnGaleria() {
+function fnGaleria() {
     navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-      {
-          quality: 50,
-          destinationType: Camera.DestinationType.FILE_URI,
-          sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-      });
+            {
+                quality: 50,
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+            });
 
-  }
-  
-  function onSuccessCamara(imageURI) {
-      $$("#foto").attr("src", imageURI);
-     // RESTA QUE ESTA FOTO SUBA AL STORAGE…. O HACER OTRA COSA...
-  
-  }
-  function onErrorCamara() {
-      console.log('error de camara');
-  }
+}
+
+function onSuccessCamara(imageURI) {
+    $$("#foto").attr("src", imageURI);
+    // RESTA QUE ESTA FOTO SUBA AL STORAGE…. O HACER OTRA COSA...
+
+}
+function onErrorCamara() {
+    console.log('error de camara');
+}

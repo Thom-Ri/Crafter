@@ -130,10 +130,11 @@ $$(document).on('page:init', '.page[data-name="miproyecto"]', function (e) {
             parrafodos= doc.data().segundoparrafo
             parrafotres= doc.data().tercerparrafo
             parrafocuatro= doc.data().cuartoparrafo
+            foto=doc.data().foto
               card=`<div class="card card-expandable cardimg">
               <div class="card-content">
                 <div style="background-color: transparent; height: 300px">
-                  <img src="./img/proyecto1.jpg"  class="img" alt=""> 
+                  <img src="./`+ foto +`"  class="img" alt="">  
                   <div class="card-header text-color-black display-block">
                     <div class="item-title">`+ titulo +`</div>
                     <small style="opacity: 0.7">
@@ -224,12 +225,14 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
             parrafodos= doc.data().segundoparrafo
             parrafotres= doc.data().tercerparrafo
             parrafocuatro= doc.data().cuartoparrafo
+            foto=doc.data().foto
+
               card=`<li class="item-content invisible">
               <div class="item-inner">
                 <div class="card card-expandable cardimg">
                   <div class="card-content">
                     <div style="background-color: transparent; height: 300px">
-                      <img src="./img/proyecto1.jpg"  class="img" alt=""> 
+                      <img src="./`+ foto +`"  class="img" alt=""> 
                       <div class="card-header text-color-black display-block">
                         <div class="item-title">`+ titulo +`</div>
                         <small style="opacity: 0.7">
@@ -502,7 +505,7 @@ function fnbackcreate(){
 function createproyect(){
   var datos={
      titulo: document.getElementById("in1").value,
-    //  foto: document.getElementById("foto").attr("src"),
+     foto: document.getElementById("foto").getAttribute("src"),
      primermaterial: document.getElementById("in2").value,
      segundomaterial: document.getElementById("in3").value,
      tercermaterial: document.getElementById("in4").value,
@@ -512,8 +515,10 @@ function createproyect(){
      tercerparrafo: document.getElementById("in8").value,
      cuartoparrafo:document.getElementById("in9").value,
   }
+  pic=document.getElementById("foto").getAttribute("src")
+  console.log(pic)
   id=document.getElementById("in1").value;
-  coluser.doc("mune3@gmail.com").collection("myproyects").doc(id).set(datos)
+  coluser.doc(mail).collection("myproyects").doc(id).set(datos)
   colnewproyects.doc(id).set(datos)
   .then( function(){
     colnewproyects.get()
@@ -528,13 +533,13 @@ function createproyect(){
         parrafodos= doc.data().segundoparrafo
         parrafotres= doc.data().tercerparrafo
         parrafocuatro= doc.data().cuartoparrafo
-        
+        foto= doc.data().foto
           card=`<li class="item-content invisible">
           <div class="item-inner">
             <div class="card card-expandable cardimg">
               <div class="card-content">
                 <div style="background-color: transparent; height: 300px">
-                  <img src="./img/proyecto1.jpg"  class="img" alt=""> 
+                  <img src="./`+ foto +`"  class="img" alt=""> 
                   <div class="card-header text-color-black display-block">
                     <div class="item-title">`+ titulo +`</div>
                     <small style="opacity: 0.7">
@@ -609,10 +614,11 @@ function searchnewproject(){
             parrafodos= doc.data().segundoparrafo
             parrafotres= doc.data().tercerparrafo
             parrafocuatro= doc.data().cuartoparrafo
+            foto=doc.data().foto
               card=`<div class="card card-expandable cardimg">
               <div class="card-content">
                 <div style="background-color: transparent; height: 300px">
-                  <img src="./img/proyecto1.jpg"  class="img" alt=""> 
+                  <img src="./`+ foto +`"  class="img" alt=""> 
                   <div class="card-header text-color-black display-block">
                     <div class="item-title">`+ titulo +`</div>
                     <small style="opacity: 0.7">
@@ -665,10 +671,11 @@ function searchnewproject(){
         parrafodos= doc.data().segundoparrafo
         parrafotres= doc.data().tercerparrafo
         parrafocuatro= doc.data().cuartoparrafo
+        foto=doc.data().foto
           card=`<div class="card card-expandable cardimg">
           <div class="card-content">
             <div style="background-color: transparent; height: 300px">
-              <img src="./img/aviones.jpg"  class="img" alt=""> 
+              <img src="./`+ foto +`"  class="img" alt="">  
               <div class="card-header text-color-black display-block">
                 <div class="item-title">`+ titulo +`</div>
                 <small style="opacity: 0.7">

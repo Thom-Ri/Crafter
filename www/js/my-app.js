@@ -1,4 +1,5 @@
 // If we need to use custom DOM library, let's save it to $$ variable:
+// If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
 var app = new Framework7({
@@ -22,7 +23,8 @@ var app = new Framework7({
         { path: '/libreria/', url: 'libreria.html', },
         { path: '/nuevoprojecto/', url: 'nuevoproyecto.html', },  
         { path: '/resultado/', url: 'result.html',}, 
-        { path: '/create/', url: 'create.html',}, 
+        { path: '/create/', url: 'create.html',},
+        { path: '/miproyecto/', url: 'myproyects.html',}, 
     ],
     // ... other parameters
     autocomplete: {
@@ -40,6 +42,7 @@ db= firebase.firestore();
 colproyectos= db.collection('Proyectos');
 coluser=db.collection('Users')
 colnewproyects=db.collection('Proyectos').doc("new proyects").collection('userproyects')
+var mail=""
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -61,6 +64,7 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
 
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
+
 })
 /*REGISTRO*/ 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -76,6 +80,9 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
     $$("#btnbusqueda").on("click", search);
     $$("#btnlibreria").on("click", gotolibrary);
     $$("#btnwproject").on("click", gotoproject);
+    $$("#gocreate").on("click", gotocreate);
+    $$("#btncerrarsesion").on("click", closesesion);
+    $$("#btnmyproyects").on("click", gotomyproyects);
     var panel = app.panel.create({
       el: '.panel-left',
       on: {
@@ -104,12 +111,73 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
           },
         ]
     })
-    $$("#gocreate").on("click", gotocreate);
-    $$("#btncerrarsesion").on("click", closesesion);
 })
 
+ /*MISPROYECTOS*/
+$$(document).on('page:init', '.page[data-name="miproyecto"]', function (e) {
+  $$("#backproyect").on("click", fnbackproyect);
+  coluser.doc(mail).collection("myproyects").get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            titulo = doc.data().titulo
+            materialuno= doc.data().primermaterial
+            materialdos= doc.data().segundomaterial
+            materialtres= doc.data().tercermaterial
+            materialcuatro= doc.data().cuartomaterial
+            parrafouno= doc.data().primerparrafo
+            parrafodos= doc.data().segundoparrafo
+            parrafotres= doc.data().tercerparrafo
+            parrafocuatro= doc.data().cuartoparrafo
+              card=`<div class="card card-expandable cardimg">
+              <div class="card-content">
+                <div style="background-color: transparent; height: 300px">
+                  <img src="./img/proyecto1.jpg"  class="img" alt=""> 
+                  <div class="card-header text-color-black display-block">
+                    <div class="item-title">`+ titulo +`</div>
+                    <small style="opacity: 0.7">
+                      <img src="./img/estrella vacia.jpg" value="1" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="2" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="3" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="4" alt="" class="imge">
+                      <img src="./img/estrella vacia.jpg" value="5" alt="" class="imge">
+                    </small>
+                  </div>
+                  <a href="#" class="link card-close card-opened-fade-in color-black"
+                    style="position: absolute; right: 15px; top: 15px">
+                    <i class="icon f7-icons">xmark_circle_fill</i>
+                  </a>
+                </div>
+                <div class="card-content-padding paragraphs">
+                  <hr>
+                  <ol>
+                    <li>`+ materialuno +`</li>
+                    <li>`+ materialdos +`</li>
+                    <li>`+ materialtres +`</li>  
+                    <li>`+ materialcuatro +`</li>  
+                  </ol> 
+                  <hr>
+                  <p>`+parrafouno+`</p>
+                  <p>`+parrafodos+`</p>
+                  <p>`+parrafotres+`</p>
+                  <p>`+parrafocuatro+`</p>
+                </div>  
+              </div>  
+            </div> 
+            `
+          $$("#contenedormy").append(card);
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+})
 
+/*Create*/
 $$(document).on('page:init', '.page[data-name="create"]', function (e) {
+  $$("#backcreate").on("click", fnbackcreate);
+  $$("#btncreate").on("click", createproyect);
   var ac1 = app.actions.create({
     buttons: [
       {
@@ -127,14 +195,6 @@ $$(document).on('page:init', '.page[data-name="create"]', function (e) {
     ]
   })
 })
-
-/*Create*/
-$$(document).on('page:init', '.page[data-name="create"]', function (e) {
-  $$("#backcreate").on("click", fnbackcreate);
-  $$("#btncreate").on("click", createproyect);
-  
-})
-
 
 /*BUSQUEDA*/
 $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
@@ -357,6 +417,7 @@ function adduser(){
   var username= document.getElementById("username").value;
   var useremail= document.getElementById("useremail").value;
   var userpassword= document.getElementById("userpassword").value;
+  mail += document.getElementById("useremail").value
   firebase.auth().createUserWithEmailAndPassword(useremail,userpassword)
     .catch( function(error){
         console.log("hay un error")
@@ -383,21 +444,11 @@ function adduser(){
         })
         mainView.router.navigate('/inicio/');
     })
-
-  // .then(function(){
-  //   coluser.doc(id).get()
-  //   .then((doc) => {
-  //    user= doc.data().user
-  //    $$("#inuser").html(user)
-  //   })
-  // })
-  // .catch( function(){
-  //   console.log("no master, no hay caso")
-  // })
 }
 function checkin(){
     var email= document.getElementById("useremailSI").value;
     var password= document.getElementById("userpasswordSI").value;
+    mail += document.getElementById("useremailSI").value
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
         // Signed in
@@ -432,10 +483,18 @@ function gotoproject(){
 function gotocreate(){
   mainView.router.navigate('/create/');
 }
+function gotomyproyects(){
+  mainView.router.navigate('/miproyecto/');
+}
 function closesesion(){
   mainView.router.navigate('/index/');
   app.panel.close(mypanel);
 }
+/* FUNCIONES DE MYPROYECT*/
+function fnbackproyect(){
+  mainView.router.navigate('/inicio/');
+}
+
 /* FUNCIONES DE CREATE*/
 function fnbackcreate(){
   mainView.router.navigate('/inicio/');
@@ -454,6 +513,7 @@ function createproyect(){
      cuartoparrafo:document.getElementById("in9").value,
   }
   id=document.getElementById("in1").value;
+  coluser.doc("mune3@gmail.com").collection("myproyects").doc(id).set(datos)
   colnewproyects.doc(id).set(datos)
   .then( function(){
     colnewproyects.get()
@@ -689,25 +749,25 @@ function apagar() {
 
 function fnCamara() {
   // FOTO DESDE CAMARA
-      navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-              {
-                  quality: 50,
-                  destinationType: Camera.DestinationType.FILE_URI,
-                  sourceType: Camera.PictureSourceType.CAMERA
-              });
-  }
+  navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
+          {
+              quality: 50,
+              destinationType: Camera.DestinationType.FILE_URI,
+              sourceType: Camera.PictureSourceType.CAMERA
+          });
+}
   
   
 function fnGaleria() {
-    navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-            {
-                quality: 50,
-                destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-            });
+  navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
+          {
+              quality: 50,
+              destinationType: Camera.DestinationType.FILE_URI,
+              sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+          });
 
 }
-
+  
 function onSuccessCamara(imageURI) {
     $$("#foto").attr("src", imageURI);
     // RESTA QUE ESTA FOTO SUBA AL STORAGE…. O HACER OTRA COSA...

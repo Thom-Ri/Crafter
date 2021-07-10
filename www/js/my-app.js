@@ -43,6 +43,10 @@ colproyectos= db.collection('Proyectos');
 coluser=db.collection('Users')
 colnewproyects=db.collection('Proyectos').doc("new proyects").collection('userproyects')
 var mail=""
+var matuno = ""
+var matdos = ""
+var mattres = ""
+var matcuatro= ""
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
@@ -83,6 +87,15 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
     $$("#gocreate").on("click", gotocreate);
     $$("#btncerrarsesion").on("click", closesesion);
     $$("#btnmyproyects").on("click", gotomyproyects);
+    coluser.doc(mail).get()
+          .then((doc) => {
+            user= doc.data().user
+            console.log("panel dice hola: " + user)
+            $$("#inuser").html(user)
+          })
+          .catch(function(){
+            console.log("volve a intentar")
+          })
     var panel = app.panel.create({
       el: '.panel-left',
       on: {
@@ -432,19 +445,6 @@ function adduser(){
         }
         id=document.getElementById("useremail").value;
         coluser.doc(id).set(datos)
-        .then(function(){
-          db.collection("users").doc(id).get().then((doc) => {
-            user= doc.data().user
-            console.log(user); 
-            $$("#inuser").html(user)          
-          })
-          .catch((error) => {
-            console.log("nop");
-          });
-        })
-        .catch(function(){
-          console.log("no se escribio en base")
-        })
         mainView.router.navigate('/inicio/');
     })
 }
@@ -593,16 +593,18 @@ function backbusqueda(){
 function backnuevoprojecto(){
     mainView.router.navigate('/inicio/');
 }
+// colproyectos.where('primermaterial', 'in', [mat1 , mat2, mat3, mat4])
 function searchnewproject(){ 
-  var mat1= document.getElementById("autocomplete-dropdown").value;
-  var mat2= document.getElementById("autocomplete-dropdown2").value;
-  var mat3= document.getElementById("autocomplete-dropdown3").value;
-  var mat4= document.getElementById("autocomplete-dropdown4").value;
-  console.log(mat1 , mat2, mat3, mat4)
-  colproyectos.where("primermaterial", "==", "carton")
+  matuno += document.getElementById("autocomplete-dropdown").value;
+  matdos += document.getElementById("autocomplete-dropdown2").value;
+  mattres += document.getElementById("autocomplete-dropdown3").value;
+  matcuatro += document.getElementById("autocomplete-dropdown4").value;
+  console.log(matuno)
+  var quary=colproyectos
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
+          if(doc.data().primermaterial == "carton" ){
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
             titulo = doc.data().titulo
@@ -651,7 +653,8 @@ function searchnewproject(){
               </div>  
             </div> `
             $$("#contenedores").append(card);
-          });
+          }   
+        });
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
@@ -720,6 +723,10 @@ function searchnewproject(){
 
 function backresult(){
   mainView.router.navigate('/inicio/');
+  matuno = ""
+  matdos = ""
+  mattres = ""
+  matcuatro = "" 
 }
 
 /* FUNCIONES DE CARDS*/

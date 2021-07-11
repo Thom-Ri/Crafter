@@ -202,31 +202,31 @@ $$(document).on('page:init', '.page[data-name="miproyecto"]', function (e) {
 $$(document).on('page:init', '.page[data-name="create"]', function (e) {
   $$("#backcreate").on("click", fnbackcreate);
   $$("#btncreate").on("click", createproyect);
-  $$("#chimg").on("click", function(){
-    var dialog= app.dialog.create({
-      title: 'Imagenes',
-      text: '¿No tienes una imagen? Prueba nuestra galeria de fotos',
-      buttons: [
-        {
-          text: 'Opcion 1',
-          onClick: fnfotouno(),
-        },
-        {
-          text: 'Opcion 2',
-          onClick: fnfotodos(),
-        },
-        {
-          text: 'Opcion 3',
-          onClick: fnfototres(),
-        },
-        {
-          text: 'Opcion 3',
-          onClick: fnfotocuatro(),
-        },
-      ],
-      verticalButtons: true,
-    }).open();    
-  })
+  // $$("#chimg").on("click", function(){
+  //   var dialog= app.dialog.create({
+  //     title: 'Imagenes',
+  //     text: '¿No tienes una imagen? Prueba nuestra galeria de fotos',
+  //     buttons: [
+  //       {
+  //         text: 'Opcion 1',
+  //         onClick: fnfotouno(),
+  //       },
+  //       {
+  //         text: 'Opcion 2',
+  //         onClick: fnfotodos(),
+  //       },
+  //       {
+  //         text: 'Opcion 3',
+  //         onClick: fnfototres(),
+  //       },
+  //       {
+  //         text: 'Opcion 3',
+  //         onClick: fnfotocuatro(),
+  //       },
+  //     ],
+  //     verticalButtons: true,
+  //   }).open();    
+  // })
   var ac1 = app.actions.create({
     buttons: [
       {
@@ -651,6 +651,9 @@ function searchnewproject(){
   mattres = (document.getElementById("autocomplete-dropdown3").value).toLowerCase();
   matcuatro = (document.getElementById("autocomplete-dropdown4").value).toLowerCase();
   console.log(matuno)
+  console.log(matdos)
+  console.log(mattres)
+  console.log(matcuatro)
   var quary=colproyectos
     .get()
     .then((querySnapshot) => {

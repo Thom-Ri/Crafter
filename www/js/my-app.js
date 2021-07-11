@@ -68,8 +68,18 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
 
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
+ var nombre= "TOMAS"
+ console.log(nombre)
 
+ console.log(nombre.toLowerCase)
 })
+
+
+
+
+
+
+
 /*REGISTRO*/ 
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
     $$("#btnregi").on("click", adduser);
@@ -192,6 +202,31 @@ $$(document).on('page:init', '.page[data-name="miproyecto"]', function (e) {
 $$(document).on('page:init', '.page[data-name="create"]', function (e) {
   $$("#backcreate").on("click", fnbackcreate);
   $$("#btncreate").on("click", createproyect);
+  $$("#chimg").on("click", function(){
+    var dialog= app.dialog.create({
+      title: 'Imagenes',
+      text: '¿No tienes una imagen? Prueba nuestra galeria de fotos',
+      buttons: [
+        {
+          text: 'Opcion 1',
+          onClick: fnfotouno(),
+        },
+        {
+          text: 'Opcion 2',
+          onClick: fnfotodos(),
+        },
+        {
+          text: 'Opcion 3',
+          onClick: fnfototres(),
+        },
+        {
+          text: 'Opcion 3',
+          onClick: fnfotocuatro(),
+        },
+      ],
+      verticalButtons: true,
+    }).open();    
+  })
   var ac1 = app.actions.create({
     buttons: [
       {
@@ -505,6 +540,19 @@ function fnbackproyect(){
 function fnbackcreate(){
   mainView.router.navigate('/inicio/');
 }
+function fnfotouno(){
+ console.log("cambio a foto uno")
+}
+function fnfotodos(){
+  console.log("cambio a foto dos")
+}
+function fnfototres(){
+  console.log("cambio a foto tres")
+}
+function fnfotocuatro(){
+  console.log("cambio a foto cuatro")
+}
+
 function createproyect(){
   var datos={
      titulo: document.getElementById("in1").value,
@@ -598,16 +646,17 @@ function backnuevoprojecto(){
 }
 // colproyectos.where('primermaterial', 'in', [mat1 , mat2, mat3, mat4])
 function searchnewproject(){ 
-  matuno += document.getElementById("autocomplete-dropdown").value;
-  matdos += document.getElementById("autocomplete-dropdown2").value;
-  mattres += document.getElementById("autocomplete-dropdown3").value;
-  matcuatro += document.getElementById("autocomplete-dropdown4").value;
+  matuno = (document.getElementById("autocomplete-dropdown").value).toLowerCase();
+  matdos = (document.getElementById("autocomplete-dropdown2").value).toLowerCase();
+  mattres = (document.getElementById("autocomplete-dropdown3").value).toLowerCase();
+  matcuatro = (document.getElementById("autocomplete-dropdown4").value).toLowerCase();
   console.log(matuno)
   var quary=colproyectos
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          if(doc.data().primermaterial == "carton" ){
+          console.log(matdos)
+          if(doc.data().primermaterial == matuno){
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
             titulo = doc.data().titulo
@@ -662,7 +711,7 @@ function searchnewproject(){
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
-  colnewproyects.where("primermaterial", "==", "carton")
+  colnewproyects.where("primermaterial", "==", matuno)
   .get()
   .then((querySnapshot) => {
     querySnapshot.forEach((doc) => {

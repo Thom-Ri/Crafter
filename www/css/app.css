@@ -142,3 +142,10 @@
   background-color: #e87c20;
   text-align: center;
 }
+
+.searchvisible{
+  visibility: visible;
+}
+.searchinvisible{
+  visibility: hidden;
+}

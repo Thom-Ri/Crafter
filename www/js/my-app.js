@@ -285,10 +285,13 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
-    });
-
-
-    
+    }); 
+    $$(".card").on("card:open", function(){
+        $$("#searchbarbus").removeClass("searchvisible").addClass("searchinvisible")
+    })
+    $$(".card").on("card:close", function(){
+      $$("#searchbarbus").removeClass("searchinvisible").addClass("searchvisible")
+    })
 })
 /*LIBRERIA*/
 $$(document).on('page:init', '.page[data-name="libreria"]', function (e) {

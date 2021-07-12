@@ -107,28 +107,8 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
       on: {
         opened: function () {
           console.log('Panel opened')
-          $$('.ac-1').on('click', () => {
-            ac1.open();
-          });
         }
       }
-    })
-    var ac1 = app.actions.create({
-        buttons: [
-          {
-            text: 'galeria',
-            onClick: fnGaleria(),
-
-          },
-          {
-            text: 'Camara',
-            onClick:fnCamara(),
-          },
-          {
-            text: 'Cancel',
-            color: 'red'
-          },
-        ]
     })
 })
 
@@ -251,22 +231,6 @@ $$(document).on('page:init', '.page[data-name="create"]', function (e) {
       verticalButtons: true,
     }).open();
   });    
-  var ac1 = app.actions.create({
-    buttons: [
-      {
-        text: 'galeria',
-        onClick: fnGaleria(),
-      },
-      {
-        text: 'Camara',
-        onClick:fnCamara(),
-      },
-      {
-        text: 'Cancel',
-        color: 'red'
-      },
-    ]
-  })
 })
 
 /*BUSQUEDA*/
@@ -823,36 +787,4 @@ function apagar() {
   for (i = 0; i <= entero; i++) {
       $("#e" + i).attr("src", "./img/estrellita selec.png")
   }
-}
-
-
-
-function fnCamara() {
-  // FOTO DESDE CAMARA
-  navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-          {
-              quality: 50,
-              destinationType: Camera.DestinationType.FILE_URI,
-              sourceType: Camera.PictureSourceType.CAMERA
-          });
-}
-  
-  
-function fnGaleria() {
-  navigator.camera.getPicture(onSuccessCamara,onErrorCamara,
-          {
-              quality: 50,
-              destinationType: Camera.DestinationType.FILE_URI,
-              sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-          });
-
-}
-  
-function onSuccessCamara(imageURI) {
-    $$("#foto").attr("src", imageURI);
-    // RESTA QUE ESTA FOTO SUBA AL STORAGE…. O HACER OTRA COSA...
-
-}
-function onErrorCamara() {
-    console.log('error de camara');
 }

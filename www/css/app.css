@@ -163,3 +163,15 @@
 .md .dialog-title+.dialog-text{
   text-align: center !important;
 }
+.panelbtn{
+  font-size: 18px !important;
+  color: #bc6f24 !important;
+  margin-bottom: 30px !important;
+}
+
+#fotopanel{
+  margin-left: 20%;
+  width: 140px;
+  height: 140px;
+}
+

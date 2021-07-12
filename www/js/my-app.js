@@ -532,14 +532,14 @@ function createproyect(){
   var datos={
      titulo: document.getElementById("in1").value,
      foto: document.getElementById("foto").getAttribute("src"),
-     primermaterial: document.getElementById("in2").value,
-     segundomaterial: document.getElementById("in3").value,
-     tercermaterial: document.getElementById("in4").value,
-     cuartomaterial: document.getElementById("in5").value,
-     primerparrafo: document.getElementById("in6").value,
-     segundoparrafo:document.getElementById("in7").value,
-     tercerparrafo: document.getElementById("in8").value,
-     cuartoparrafo:document.getElementById("in9").value,
+     primermaterial: (document.getElementById("in2").value).toLowerCase(),
+     segundomaterial: (document.getElementById("in3").value).toLowerCase(),
+     tercermaterial: (document.getElementById("in4").value).toLowerCase(),
+     cuartomaterial: (document.getElementById("in5").value).toLowerCase(),
+     primerparrafo: (document.getElementById("in6").value).toLowerCase(),
+     segundoparrafo:(document.getElementById("in7").value).toLowerCase(),
+     tercerparrafo: (document.getElementById("in8").value).toLowerCase(),
+     cuartoparrafo:(document.getElementById("in9").value).toLowerCase(),
   }
   pic=document.getElementById("foto").getAttribute("src")
   console.log(pic)

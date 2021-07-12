@@ -149,3 +149,17 @@
 .searchinvisible{
   visibility: hidden;
 }
+
+.dialog{
+  background-color: sandybrown !important;
+}
+.dialog-button{
+  width: 100% !important;
+}
+.dialog-title{
+  text-align: center !important;
+}
+
+.md .dialog-title+.dialog-text{
+  text-align: center !important;
+}

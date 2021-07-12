@@ -68,10 +68,6 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
 
 
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
- var nombre= "TOMAS"
- console.log(nombre)
-
- console.log(nombre.toLowerCase)
 })
 
 
@@ -202,31 +198,59 @@ $$(document).on('page:init', '.page[data-name="miproyecto"]', function (e) {
 $$(document).on('page:init', '.page[data-name="create"]', function (e) {
   $$("#backcreate").on("click", fnbackcreate);
   $$("#btncreate").on("click", createproyect);
-  // $$("#chimg").on("click", function(){
-  //   var dialog= app.dialog.create({
-  //     title: 'Imagenes',
-  //     text: '¿No tienes una imagen? Prueba nuestra galeria de fotos',
-  //     buttons: [
-  //       {
-  //         text: 'Opcion 1',
-  //         onClick: fnfotouno(),
-  //       },
-  //       {
-  //         text: 'Opcion 2',
-  //         onClick: fnfotodos(),
-  //       },
-  //       {
-  //         text: 'Opcion 3',
-  //         onClick: fnfototres(),
-  //       },
-  //       {
-  //         text: 'Opcion 3',
-  //         onClick: fnfotocuatro(),
-  //       },
-  //     ],
-  //     verticalButtons: true,
-  //   }).open();    
-  // })
+  $$('.open-vertical').on('click', function () {
+    app.dialog.create({
+      title: 'Galeria de imagenes',
+      text: '¿No tenes una imagen? ¡Proba nuestra galaria de imagenes!',
+      buttons: [
+        {
+          text: 'Opcion 1',
+          onClick: function () {
+            var picsrc= $$("#foto").attr("src")
+            if( picsrc == "./img/proyecto1.jpg"){
+              var alert= app.dialog.alert('Ya estas utilizando la opcion 1', 'Atento!')
+            }else{
+              $$("#foto").attr("src", "./img/proyecto1.jpg")
+            }
+          },
+        },
+        {
+          text: 'Opcion 2',
+          onClick: function () {
+            var picsrc= $$("#foto").attr("src")
+            if( picsrc == "./img/proyecto 2.jpg"){
+              var alert= app.dialog.alert('Ya estas utilizando la opcion 2', 'Atento!')
+            }else{
+              $$("#foto").attr("src", "./img/proyecto 2.jpg")
+            }
+          },
+        },
+        {
+          text: 'Opcion 3',
+          onClick: function () {
+            var picsrc= $$("#foto").attr("src")
+            if( picsrc == "./img/proyecto 3.jpg"){
+              var alert= app.dialog.alert('Ya estas utilizando la opcion 3', 'Atento!')
+            }else{
+              $$("#foto").attr("src", "./img/proyecto 3.jpg")
+            }
+          },
+        },
+        {
+          text: 'Opcion 4',
+          onClick: function () {
+            var picsrc= $$("#foto").attr("src")
+            if( picsrc == "./img/proyecto 4.jpg"){
+              var alert= app.dialog.alert('Ya estas utilizando la opcion 4', 'Atento!')
+            }else{
+              $$("#foto").attr("src", "./img/proyecto 4.jpg")
+            }
+          },
+        },
+      ],
+      verticalButtons: true,
+    }).open();
+  });    
   var ac1 = app.actions.create({
     buttons: [
       {
@@ -540,19 +564,6 @@ function fnbackproyect(){
 function fnbackcreate(){
   mainView.router.navigate('/inicio/');
 }
-function fnfotouno(){
- console.log("cambio a foto uno")
-}
-function fnfotodos(){
-  console.log("cambio a foto dos")
-}
-function fnfototres(){
-  console.log("cambio a foto tres")
-}
-function fnfotocuatro(){
-  console.log("cambio a foto cuatro")
-}
-
 function createproyect(){
   var datos={
      titulo: document.getElementById("in1").value,

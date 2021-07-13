@@ -139,7 +139,7 @@
 .inputs{
   width: 90%;
   height: 40px;
-  background-color: #e87c20;
+  background-color: #e28f48 !important;
   text-align: center;
 }
 
@@ -165,7 +165,7 @@
 }
 .panelbtn{
   font-size: 18px !important;
-  color: #bc6f24 !important;
+  color: #783e05 !important;
   margin-bottom: 30px !important;
 }
 
@@ -175,3 +175,6 @@
   height: 140px;
 }
 
+::placeholder{
+  color: #fadcd0;
+}

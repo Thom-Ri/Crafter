@@ -17,6 +17,7 @@ var app = new Framework7({
     routes: [  
         { path: '/index/', url: 'index.html', },
         { path: '/inises/', url: 'inises.html', },
+        { path: '/about/', url: 'about.html', },
         { path: '/registro/', url: 'registro.html', },
         { path: '/inicio/', url: 'inicio.html', },
         { path: '/busqueda/', url: 'busqueda.html', },
@@ -90,6 +91,7 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
     $$("#btnbusqueda").on("click", search);
     $$("#btnlibreria").on("click", gotolibrary);
     $$("#btnwproject").on("click", gotoproject);
+    $$("#btnabout").on("click", goabout);
     $$("#gocreate").on("click", gotocreate);
     $$("#btncerrarsesion").on("click", closesesion);
     $$("#btnmyproyects").on("click", gotomyproyects);
@@ -232,6 +234,15 @@ $$(document).on('page:init', '.page[data-name="create"]', function (e) {
     }).open();
   });    
 })
+/*ABOUT*/
+$$(document).on('page:init', '.page[data-name="about"]', function (e) {
+  $$("#backabout").on("click", backabout);
+})
+
+
+
+
+
 
 /*BUSQUEDA*/
 $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
@@ -515,6 +526,9 @@ function gotocreate(){
 function gotomyproyects(){
   mainView.router.navigate('/miproyecto/');
 }
+function goabout(){
+  mainView.router.navigate('/about/');
+}
 function closesesion(){
   mainView.router.navigate('/index/');
   app.panel.close(mypanel);
@@ -606,6 +620,13 @@ function createproyect(){
   })
   mainView.router.navigate('/busqueda/');     
 }
+
+
+/*FUNCIONES DE ABOUT*/
+function backabout(){
+  mainView.router.navigate('/inicio/');
+}
+
 /* FUNCIONES DE LIBRERIA*/
 function backlibrary(){
     mainView.router.navigate('/inicio/');

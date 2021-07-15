@@ -650,12 +650,10 @@ function searchnewproject(){
   console.log(matdos)
   console.log(mattres)
   console.log(matcuatro)
-  var quary=colproyectos
+  colproyectos.where("primermaterial", "in", [matuno, matdos,mattres, matcuatro])
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          console.log(matdos)
-          if(doc.data().primermaterial == matuno){
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
             titulo = doc.data().titulo
@@ -704,13 +702,14 @@ function searchnewproject(){
               </div>  
             </div> `
             $$("#contenedores").append(card);
-          }   
+             
         });
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
-  colnewproyects.where("primermaterial", "==", matuno)
+    // citiesRef.where('country', 'in', ['USA', 'Japan']);
+  colnewproyects.where("primermaterial", "in", [matuno, matdos,mattres, matcuatro])
   .get()
   .then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
@@ -778,34 +777,4 @@ function backresult(){
   matdos = ""
   mattres = ""
   matcuatro = "" 
-}
-
-/* FUNCIONES DE CARDS*/
-function iluminar(n) {
-  $(".imge").attr("src", "./img/estrella vacia.jpg")
-  for (i = 0; i <= n; i++) {
-      $("#e" + i).attr("src", "./img/estrellita ilu.png")
-  }
-}
-
-function seleccionar(nm) {
-  nvotos++
-  npuntos += nm
-  apagar();
-  console.log("nv =" + nvotos)
-  console.log("np =" + npuntos)
-  console.log("veo estrellas" + nm + "iluminadas")
-}
-
-function apagar() {
-  $(".imge").attr("src", "./img/estrella vacia.jpg")
-  if (nvotos > 1) {
-      prom = npuntos / nvotos
-      console.log("prom es igual a " + prom)
-  }
-  entero = parseInt(prom)
-  decimal = prom - entero
-  for (i = 0; i <= entero; i++) {
-      $("#e" + i).attr("src", "./img/estrellita selec.png")
-  }
 }

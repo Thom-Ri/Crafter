@@ -86,13 +86,6 @@
 .pgindex{
   background-image: linear-gradient( #ff4e00, #ec9f05);
 }
-
-.btnmenu{
-  background-color: #ff7300;
-}
-.pginicio{
-  background-image: linear-gradient( #fadcd0, #fa8d10);
-}
 .invisible{
   background-color: transparent!important;
   border: none;
@@ -106,11 +99,6 @@
   min-width: 100px;
   max-width: 90vw;
 }
-
-.mypanel{
-  background-color: #ff8f33;
-}
-
 
 .cardimg{
   height: 175px;
@@ -135,14 +123,6 @@
   height: 0px!important;
 }
 
-
-.inputs{
-  width: 90%;
-  height: 40px;
-  background-color: #e28f48 !important;
-  text-align: center;
-}
-
 .searchvisible{
   visibility: visible;
 }
@@ -150,11 +130,9 @@
   visibility: hidden;
 }
 
-.dialog{
-  background-color: sandybrown !important;
-}
 .dialog-button{
   width: 100% !important;
+  color: black;
 }
 .dialog-title{
   text-align: center !important;
@@ -163,11 +141,7 @@
 .md .dialog-title+.dialog-text{
   text-align: center !important;
 }
-.panelbtn{
-  font-size: 18px !important;
-  color: #783e05 !important;
-  margin-bottom: 30px !important;
-}
+
 
 #fotopanel{
   margin-left: 20%;
@@ -184,3 +158,124 @@
   font-weight: bold;
   margin-bottom: 45px;
 }
+
+
+
+/*ESTILOS AUTOUM*/
+.btnmenu{
+  background-color: #ff7300;
+}
+.pginicio{
+  background-image: linear-gradient( #fadcd0, #fa8d10);
+}
+#inuser{
+  text-align: center;
+  font-size: 21px;
+  color: #783e05;
+  font-weight: 500;
+}
+.inputs{
+  width: 90%;
+  height: 40px;
+  background-color: #e28f48 !important;
+  text-align: center;
+}
+.dialog{
+  background-color: sandybrown !important;
+}
+.panelbtn{
+  font-size: 18px !important;
+  color: #783e05 !important;
+  margin-bottom: 30px !important;
+}
+
+
+/*ESTILOS WINTER*/
+/* .btnmenu{
+  background-color: #00a6ff;
+}
+.pginicio{
+  background-image: linear-gradient( #ffffff, #1d6a86);
+}
+#inuser{
+  text-align: center;
+  font-size: 21px;
+  color: #074c74;
+  font-weight: 500;
+}
+.inputs{
+  width: 90%;
+  height: 40px;
+  background-color: #4882e2 !important;
+  text-align: center;
+}
+.dialog{
+  background-color: #5eb4ff !important;
+}
+.panelbtn{
+  font-size: 18px !important;
+  color: #074c74 !important;
+  margin-bottom: 30px !important;
+} */
+
+
+
+/*ESTILOS SPRING*/
+/* .btnmenu {
+  background-color: #e2a6a6;
+}
+.pginicio {
+  background-image: linear-gradient( #f8efb7, #a66e58);
+}
+#inuser{
+  text-align: center;
+  font-size: 21px;
+  color: #6c0000;
+  font-weight: 500;
+}
+
+.inputs {
+  width: 90%;
+  height: 40px;
+  background-color: #cb85a0 !important;
+  text-align: center;
+}
+.dialog{
+  background-color: #cb85a0 !important;
+}
+.panelbtn {
+  font-size: 18px !important;
+  color: #6c0000 !important;
+  margin-bottom: 30px !important;
+} */
+
+/*ESTILOS SUMMER*/
+
+/* .btnmenu {
+  background-color: #de4444;
+}
+
+.pginicio {
+  background-image: linear-gradient( #efe8bc, #d98f08);
+}
+
+#inuser{
+  text-align: center;
+  font-size: 21px;
+  color: #b60000;
+  font-weight: 500;
+}
+.inputs {
+  width: 90%;
+  height: 40px;
+  background-color: #cd4242 !important;
+  text-align: center;
+}
+.dialog{
+  background-color: #ff6060 !important;
+}
+.panelbtn {
+  font-size: 18px !important;
+  color: #b60000 !important;
+  margin-bottom: 30px !important;
+} */

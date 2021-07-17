@@ -18,6 +18,7 @@ var app = new Framework7({
         { path: '/index/', url: 'index.html', },
         { path: '/inises/', url: 'inises.html', },
         { path: '/about/', url: 'about.html', },
+        { path: '/config/', url: 'config.html', },
         { path: '/registro/', url: 'registro.html', },
         { path: '/inicio/', url: 'inicio.html', },
         { path: '/busqueda/', url: 'busqueda.html', },
@@ -91,6 +92,7 @@ $$(document).on('page:init', '.page[data-name="inicio"]', function (e) {
     $$("#btnbusqueda").on("click", search);
     $$("#btnlibreria").on("click", gotolibrary);
     $$("#btnwproject").on("click", gotoproject);
+    $$("#btnconfig").on("click", gotoconfig);
     $$("#btnabout").on("click", goabout);
     $$("#gocreate").on("click", gotocreate);
     $$("#btncerrarsesion").on("click", closesesion);
@@ -239,7 +241,27 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
   $$("#backabout").on("click", backabout);
 })
 
-
+$$(document).on('page:init', '.page[data-name="config"]', function (e) {
+  $$("#backconfig").on("click", backconfig);
+  var pickerDevice = app.picker.create({
+    inputEl: '#demo-picker-device',
+    cols: [
+      {
+        textAlign: 'center',
+        values: ['autoum', 'winter', 'spring', 'summer'],
+        onChange: function (picker, values) {
+          if (picker.col.value == "autoum") {
+            console.log("cambio a autoum")
+          } else if(picker.col.value == "winter"){
+            console.log("cambio a autoum")
+          }else if(picker.col.value == "spring"){
+            console.log("cambio a spring")
+          }
+        }
+      }
+    ]
+  });
+})
 
 
 
@@ -416,45 +438,6 @@ $$(document).on('page:init', '.page[data-name="result"]', function (e) {
   $$("#backresult").on("click", backresult);    
 })
 
-
-
-/*CARDS*/
-$$('card-expandable').on('card:opened', function () {
-    $("#e1").on("mouseover", function() {
-      iluminar(1)
-    });
-    $("#e2").on("mouseover", function() {
-      iluminar(2)
-    });
-    $("#e3").on("mouseover", function() {
-        iluminar(3)
-    });
-    $("#e4").on("mouseover", function() {
-        iluminar(4)
-    });
-    $("#e5").on("mouseover", function() {
-        iluminar(5)
-    });
-
-    $("#e1").on("click", function() {
-        seleccionar(1)
-    });
-    $("#e2").on("click", function() {
-        seleccionar(2)
-    });
-    $("#e3").on("click", function() {
-        seleccionar(3)
-    });
-    $("#e4").on("click", function() {
-        seleccionar(4)
-    });
-    $("#e5").on("click", function() {
-        seleccionar(5)
-    });
-
-    $(".imge").on("mouseout", apagar);
-    });
-
 /*
 
   COMIENZAN FUNCIONESSSSSSS
@@ -525,6 +508,9 @@ function gotocreate(){
 }
 function gotomyproyects(){
   mainView.router.navigate('/miproyecto/');
+}
+function gotoconfig(){
+  mainView.router.navigate('/config/');
 }
 function goabout(){
   mainView.router.navigate('/about/');
@@ -627,6 +613,10 @@ function backabout(){
   mainView.router.navigate('/inicio/');
 }
 
+/*FUNCIONES CONFIGURACION*/
+function backconfig(){
+  mainView.router.navigate('/inicio/');
+}
 /* FUNCIONES DE LIBRERIA*/
 function backlibrary(){
     mainView.router.navigate('/inicio/');

@@ -49,7 +49,7 @@ var matuno = ""
 var matdos = ""
 var mattres = ""
 var matcuatro= ""
-
+var seasons= "Autoum"
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
@@ -240,32 +240,26 @@ $$(document).on('page:init', '.page[data-name="create"]', function (e) {
 $$(document).on('page:init', '.page[data-name="about"]', function (e) {
   $$("#backabout").on("click", backabout);
 })
-
+/*CONFIGURACION*/
 $$(document).on('page:init', '.page[data-name="config"]', function (e) {
   $$("#backconfig").on("click", backconfig);
-  var pickerDevice = app.picker.create({
-    inputEl: '#demo-picker-device',
-    cols: [
-      {
-        textAlign: 'center',
-        values: ['autoum', 'winter', 'spring', 'summer'],
-        onChange: function (picker, values) {
-          if (picker.col.value == "autoum") {
-            console.log("cambio a autoum")
-          } else if(picker.col.value == "winter"){
-            console.log("cambio a autoum")
-          }else if(picker.col.value == "spring"){
-            console.log("cambio a spring")
-          }
-        }
-      }
-    ]
-  });
+  var toggle = app.toggle.create({
+    el: '.toggleau',
+  })
+  var toggle = app.toggle.create({
+    el: '.togglewi',
+  })
+  var toggle = app.toggle.create({
+    el: '.togglesp',
+  })
+  var toggle = app.toggle.create({
+    el: '.togglesu',
+  })
+  $$(".toggleau").on("change", fnautoum);
+  $$(".togglewi").on("change", fnwinter);
+  $$(".togglesp").on("change", fnspring);
+  $$(".togglesu").on("change", fnsummer);
 })
-
-
-
-
 /*BUSQUEDA*/
 $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
     $$("#backbusqueda").on("click", backbusqueda);
@@ -617,6 +611,114 @@ function backabout(){
 function backconfig(){
   mainView.router.navigate('/inicio/');
 }
+function fnautoum(){
+  seasons="Autoum"
+  $$("#seasons").html(seasons)
+  if($$("#pinicio").hasClass("pginiciowi")){
+    /*WINTER*/
+    $$(".cssini").removeClass("pginiciowi").addClass("pginicio")
+    $$(".cssbtnmenu").removeClass("btnmenuwi").addClass("btnmenu")
+    $$(".cssinuser").removeClass("inuserwi").addClass("inuser")
+    $$(".csspanelbtn").removeClass("panelbtnwi").addClass("panelbtn")
+    $$(".cssinputs").removeClass("inputswi").addClass("inputs")
+    
+  }else if($$("#pinicio").hasClass("pginiciosp")){
+    /*SPRING*/
+    $$(".cssini").removeClass("pginiciosp").addClass("pginicio")
+    $$(".cssbtnmenu").removeClass("btnmenusp").addClass("btnmenu")
+    $$(".cssinuser").removeClass("inusersp").addClass("inuser")
+    $$(".csspanelbtn").removeClass("panelbtnsp").addClass("panelbtn")
+    $$(".cssinputs").removeClass("inputssp").addClass("inputs")
+  }else if($$("#pinicio").hasClass("pginiciosu")){
+    /*SUMMER*/
+    $$(".cssini").removeClass("pginiciosu").addClass("pginicio")
+    $$(".cssbtnmenu").removeClass("btnmenusu").addClass("btnmenu")
+    $$(".cssinuser").removeClass("inusersu").addClass("inuser")
+    $$(".csspanelbtn").removeClass("panelbtnsu").addClass("panelbtn")
+    $$(".cssinputs").removeClass("inputssu").addClass("inputs")
+  }
+  
+}
+function fnwinter(){
+  seasons="Winter"
+  $$("#seasons").html(seasons)
+  if($$("#pinicio").hasClass("pginicio")){
+    /*AUTOUM*/
+    $$(".cssini").removeClass("pginicio").addClass("pginiciowi")
+    $$(".cssbtnmenu").removeClass("btnmenu").addClass("btnmenuwi")
+    $$(".cssinuser").removeClass("inuser").addClass("inuserwi")
+    $$(".csspanelbtn").removeClass("panelbtn").addClass("panelbtnwi")
+    $$(".cssinputs").removeClass("inputs").addClass("inputswi")
+  }else if($$("#pinicio").hasClass("pginiciosp")){
+    /*SPRING*/
+    $$(".cssini").removeClass("pginiciosp").addClass("pginiciowi")
+    $$(".cssbtnmenu").removeClass("btnmenusp").addClass("btnmenuwi")
+    $$(".cssinuser").removeClass("inusersp").addClass("inuserwi")
+    $$(".csspanelbtn").removeClass("panelbtnsp").addClass("panelbtnwi")
+    $$(".cssinputs").removeClass("inputssp").addClass("inputswi")
+  }else if($$("#pinicio").hasClass("pginiciosu")){
+    /*SUMMER*/
+    $$(".cssini").removeClass("pginiciosu").addClass("pginiciowi")
+    $$(".cssbtnmenu").removeClass("btnmenusu").addClass("btnmenuwi")
+    $$(".cssinuser").removeClass("inusersu").addClass("inuserwi")
+    $$(".csspanelbtn").removeClass("panelbtnsu").addClass("panelbtnwi")
+    $$(".cssinputs").removeClass("inputssu").addClass("inputswi")
+  }
+}
+function fnspring(){
+  seasons="Spring"
+  $$("#seasons").html(seasons)
+  if($$("#pinicio").hasClass("pginicio")){
+    /*AUTOUM*/
+    $$(".cssini").removeClass("pginicio").addClass("pginiciosp")
+    $$(".cssbtnmenu").removeClass("btnmenu").addClass("btnmenusp")
+    $$(".cssinuser").removeClass("inuser").addClass("inusersp")
+    $$(".csspanelbtn").removeClass("panelbtn").addClass("panelbtnsp")
+    $$(".cssinputs").removeClass("inputs").addClass("inputs")
+  }else if($$("#pinicio").hasClass("pginiciowi")){
+    /*WINTER*/
+    $$(".cssini").removeClass("pginiciowi").addClass("pginiciosp")
+    $$(".cssbtnmenu").removeClass("btnmenuwi").addClass("btnmenusp")
+    $$(".cssinuser").removeClass("inuserwi").addClass("inusersp")
+    $$(".csspanelbtn").removeClass("panelbtnwi").addClass("panelbtnsp")
+    $$(".cssinputs").removeClass("inputswi").addClass("inputssp")
+  }else if($$("#pinicio").hasClass("pginiciosu")){
+    /*SUMMER*/
+    $$(".cssini").removeClass("pginiciosu").addClass("pginiciosp")
+    $$(".cssbtnmenu").removeClass("btnmenusu").addClass("btnmenusp")
+    $$(".cssinuser").removeClass("inusersu").addClass("inusersp")
+    $$(".csspanelbtn").removeClass("panelbtnsu").addClass("panelbtnsp")
+    $$(".cssinputs").removeClass("inputssu").addClass("inputssp")
+  }
+}
+function fnsummer(){
+  seasons="Summer"
+  $$("#seasons").html(seasons)
+  if($$("#pinicio").hasClass("pginicio")){
+    /*AUTOUM*/
+    $$(".cssini").removeClass("pginicio").addClass("pginiciosu")
+    $$(".cssbtnmenu").removeClass("btnmenu").addClass("btnmenusu")
+    $$(".cssinuser").removeClass("inuser").addClass("inusersu")
+    $$(".csspanelbtn").removeClass("panelbtn").addClass("panelbtnsu")
+    $$(".cssinputs").removeClass("inputs").addClass("inputssu")
+  }else if($$("#pinicio").hasClass("pginiciowi")){
+    /*WINTER*/
+    $$(".cssini").removeClass("pginiciowi").addClass("pginiciosu")
+    $$(".cssbtnmenu").removeClass("btnmenuwi").addClass("btnmenusu")
+    $$(".cssinuser").removeClass("inuserwi").addClass("inusersu")
+    $$(".csspanelbtn").removeClass("panelbtnwi").addClass("panelbtnsu")
+    $$(".cssinputs").removeClass("inputswi").addClass("inputssu")
+  }else if($$("#pinicio").hasClass("pginiciosp")){
+    /*SPRING*/
+    $$(".cssini").removeClass("pginiciosp").addClass("pginiciosu")
+    $$(".cssbtnmenu").removeClass("btnmenusp").addClass("btnmenusu")
+    $$(".cssinuser").removeClass("inusersp").addClass("inusersu")
+    $$(".csspanelbtn").removeClass("panelbtnsp").addClass("panelbtnsu")
+    $$(".cssinputs").removeClass("inputssp").addClass("inputssu")
+  }
+}
+
+
 /* FUNCIONES DE LIBRERIA*/
 function backlibrary(){
     mainView.router.navigate('/inicio/');

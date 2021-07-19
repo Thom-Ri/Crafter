@@ -168,7 +168,7 @@
 .pginicio{
   background-image: linear-gradient( #fadcd0, #fa8d10);
 }
-#inuser{
+.inuser{
   text-align: center;
   font-size: 21px;
   color: #783e05;
@@ -191,91 +191,91 @@
 
 
 /*ESTILOS WINTER*/
-/* .btnmenu{
+.btnmenuwi{
   background-color: #00a6ff;
 }
-.pginicio{
+.pginiciowi{
   background-image: linear-gradient( #ffffff, #1d6a86);
 }
-#inuser{
+.inuserwi{
   text-align: center;
   font-size: 21px;
   color: #074c74;
   font-weight: 500;
 }
-.inputs{
+.inputswi{
   width: 90%;
   height: 40px;
   background-color: #4882e2 !important;
   text-align: center;
 }
-.dialog{
+.dialogwi{
   background-color: #5eb4ff !important;
 }
-.panelbtn{
+.panelbtnwi{
   font-size: 18px !important;
   color: #074c74 !important;
   margin-bottom: 30px !important;
-} */
+}
 
 
 
 /*ESTILOS SPRING*/
-/* .btnmenu {
+.btnmenusp {
   background-color: #e2a6a6;
 }
-.pginicio {
+.pginiciosp {
   background-image: linear-gradient( #f8efb7, #a66e58);
 }
-#inuser{
+.inusersp{
   text-align: center;
   font-size: 21px;
   color: #6c0000;
   font-weight: 500;
 }
 
-.inputs {
+.inputssp {
   width: 90%;
   height: 40px;
   background-color: #cb85a0 !important;
   text-align: center;
 }
-.dialog{
+.dialogsp{
   background-color: #cb85a0 !important;
 }
-.panelbtn {
+.panelbtnsp {
   font-size: 18px !important;
   color: #6c0000 !important;
   margin-bottom: 30px !important;
-} */
+}
 
 /*ESTILOS SUMMER*/
 
-/* .btnmenu {
+.btnmenusu {
   background-color: #de4444;
 }
 
-.pginicio {
+.pginiciosu {
   background-image: linear-gradient( #efe8bc, #d98f08);
 }
 
-#inuser{
+.inusersu{
   text-align: center;
   font-size: 21px;
   color: #b60000;
   font-weight: 500;
 }
-.inputs {
+.inputssu {
   width: 90%;
   height: 40px;
   background-color: #cd4242 !important;
   text-align: center;
 }
-.dialog{
+.dialogsu{
   background-color: #ff6060 !important;
 }
-.panelbtn {
+.panelbtnsu {
   font-size: 18px !important;
   color: #b60000 !important;
   margin-bottom: 30px !important;
-} */
+}
